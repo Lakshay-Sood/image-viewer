@@ -3,12 +3,20 @@ export const populateDataToHTML = (dataList) => {
 	const imagePreview = document.querySelector('.image-preview');
 
 	dataList.forEach((data, index) => {
+		// minimise large title strings
+		let titleThumbnail = data.title;
+		if (titleThumbnail.length > 35) {
+			let prefix = titleThumbnail.slice(0, 16).trim();
+			let suffix = titleThumbnail.slice(-15).trim();
+			titleThumbnail = prefix + '...' + suffix;
+		}
+
 		// populating list
 		list.innerHTML += `<li data-index="${index}" ${
 			index === 0 ? 'class="active"' : ''
 		}>
 		<img src="${data.previewImage}" />
-		<span>${data.title}</span>
+		<span>${titleThumbnail}</span>
 	</li>`;
 
 		// populating image previews
