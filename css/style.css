@@ -91,6 +91,9 @@ body {
 }
 
 .image-preview .img-title {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -108,7 +111,10 @@ body {
         -ms-flex-align: center;
             align-items: center;
   }
-  .image-preview {
+  .container .list {
+    max-width: 80%;
+  }
+  .container .image-preview {
     width: 90%;
     height: 600px;
   }
