@@ -1,34 +1,70 @@
+/**
+ * @param {[{previewImage: string, title: string}]} dataList Parsed JSON data array
+ */
 export const populateDataToHTML = (dataList) => {
 	const list = document.querySelector('.list');
 	const imagePreview = document.querySelector('.image-preview');
 
 	dataList.forEach((data, index) => {
-		// minimise large title strings
-		let titleThumbnail = data.title;
-		if (titleThumbnail.length > 35) {
-			let prefix = titleThumbnail.slice(0, 16).trim();
-			let suffix = titleThumbnail.slice(-15).trim();
-			titleThumbnail = prefix + '...' + suffix;
-		}
-
-		// populating list
+		// populating list (without title)
 		list.innerHTML += `<li data-index="${index}" ${
 			index === 0 ? 'class="active"' : ''
 		}>
 		<img src="${data.previewImage}" />
-		<span>${titleThumbnail}</span>
-	</li>`;
+		<span class='titleThumbnail'></span>
+		</li>`;
 
 		// populating image previews
 		imagePreview.innerHTML += `<div class="image-wrapper ${
 			index === 0 ? 'active' : ''
 		}">
 		<img src="${data.previewImage}" />
-	<p class="img-title">${data.title}</p>
-</div>`;
+		<p class="img-title">${data.title}</p>
+		</div>`;
+	});
+
+	// populating thumbnail titles on initial render
+	populateThumbnailTitle(dataList);
+
+	// dynaically populating thumbnail titles in the list on every window resize
+	window.addEventListener('resize', () => populateThumbnailTitle(dataList));
+};
+
+const populateThumbnailTitle = (dataList) => {
+	const titleSpan = document.querySelectorAll('.titleThumbnail');
+	titleSpan.forEach((ele, index) => {
+		let title = dataList[index].title;
+		ele.innerHTML = title;
+
+		// if entire title could fit
+		if (ele.scrollWidth <= ele.clientWidth) return;
+
+		let prefix = '',
+			suffix = '';
+		ele.innerHTML = prefix + '...' + suffix;
+		for (
+			let beg = 0, end = title.length - 1;
+			ele.scrollWidth <= ele.clientWidth;
+			beg++, end--
+		) {
+			prefix = prefix + title[beg];
+			suffix = title[end] + suffix;
+			ele.innerHTML = prefix + '...' + suffix;
+		}
+
+		// reversing the last operation so avoid overflow
+		ele.innerHTML =
+			prefix.slice(0, prefix.length - 1) +
+			'...' +
+			suffix.slice(1, suffix.length);
 	});
 };
 
+/**
+ * Manages state (index) of the item (image) that has to be shown
+ * @param {NodeListOf<Element>} listItems NodeList of list items (on the left)
+ * @returns void
+ */
 export const stateHandler = (listItems) => {
 	const imageWrappers = document.querySelectorAll('.image-wrapper');
 
