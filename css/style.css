@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -48,7 +48,7 @@ body {
 }
 
 .list li span {
-  overflow: scroll;
+  overflow: hidden;
   white-space: nowrap;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
