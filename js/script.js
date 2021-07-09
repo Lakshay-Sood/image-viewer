@@ -18,7 +18,7 @@ fetch('./data.json')
 		listItems.forEach((li) => {
 			li.addEventListener('click', (event) => setState(event));
 		});
-
+		//
 		// ## UP & DOWN arrow keys functionality
 		window.addEventListener('keydown', (event) => {
 			switch (event.key) {
