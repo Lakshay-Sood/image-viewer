@@ -35,28 +35,50 @@ const populateThumbnailTitle = (dataList) => {
 	titleSpan.forEach((ele, index) => {
 		let title = dataList[index].title;
 		ele.innerHTML = title;
-
-		// if entire title could fit
 		if (ele.scrollWidth <= ele.clientWidth) return;
 
-		let prefix = '',
-			suffix = '';
-		ele.innerHTML = prefix + '...' + suffix;
-		for (
-			let beg = 0, end = title.length - 1;
-			ele.scrollWidth <= ele.clientWidth;
-			beg++, end--
-		) {
-			prefix = prefix + title[beg];
-			suffix = title[end] + suffix;
-			ele.innerHTML = prefix + '...' + suffix;
+		// ////////
+		let minLength = 1,
+			maxLength = title.length;
+		while (minLength < maxLength) {
+			let midLength = Math.floor((minLength + maxLength) / 2);
+			ele.textContent =
+				title.substr(0, Math.floor(midLength / 2)) +
+				'...' +
+				title.substr(Math.ceil(-midLength / 2));
+			if (ele.scrollWidth > ele.clientWidth) {
+				maxLength = midLength - 1;
+				ele.textContent = title;
+			} else {
+				minLength = midLength + 1;
+				ele.textContent = title;
+			}
 		}
+		ele.textContent =
+			title.substr(0, maxLength / 2) + '...' + title.substr(-maxLength / 2);
+		// ///////
 
-		// reversing the last operation so avoid overflow
-		ele.innerHTML =
-			prefix.slice(0, prefix.length - 1) +
-			'...' +
-			suffix.slice(1, suffix.length);
+		// // if entire title could fit
+		// if (ele.scrollWidth <= ele.clientWidth) return;
+
+		// let prefix = '',
+		// 	suffix = '';
+		// ele.innerHTML = prefix + '...' + suffix;
+		// for (
+		// 	let beg = 0, end = title.length - 1;
+		// 	ele.scrollWidth <= ele.clientWidth;
+		// 	beg++, end--
+		// ) {
+		// 	prefix = prefix + title[beg];
+		// 	suffix = title[end] + suffix;
+		// 	ele.innerHTML = prefix + '...' + suffix;
+		// }
+
+		// // reversing the last operation so avoid overflow
+		// ele.innerHTML =
+		// 	prefix.slice(0, prefix.length - 1) +
+		// 	'...' +
+		// 	suffix.slice(1, suffix.length);
 	});
 };
 
