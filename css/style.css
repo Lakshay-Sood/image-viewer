@@ -143,8 +143,8 @@ body {
 }
 
 .temp-loader {
-  max-width: 60%;
-  height: 40px;
+  height: 30px;
+  margin: 10px 0;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
