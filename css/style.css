@@ -31,6 +31,11 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   max-width: 25%;
+  height: 80vh;
+  overflow-y: scroll;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 20px -45px inset;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 20px -45px inset;
+  border-radius: 5px;
 }
 
 .list li {
@@ -128,11 +133,20 @@ body {
   }
   .container .list {
     max-width: 80%;
+    height: 40vh;
   }
   .container .image-preview {
     width: 80%;
-    height: 50vh;
+    height: 45vh;
     margin-top: 2em;
   }
+}
+
+.temp-loader {
+  max-width: 60%;
+  height: 40px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 /*# sourceMappingURL=style.css.map */
