@@ -24,7 +24,11 @@ export const stateHandler = () => {
 		toggleActiveClass(curState);
 		toggleActiveClass(nextState);
 		curState = nextState;
-		listItems[curState].scrollIntoView(false);
+		// listItems[curState].scrollIntoView(false);
+		listItems[curState].scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest',
+		});
 	}
 
 	// for UP key event
@@ -35,7 +39,11 @@ export const stateHandler = () => {
 		toggleActiveClass(curState);
 		toggleActiveClass(prevState);
 		curState = prevState;
-		listItems[curState].scrollIntoView(true);
+		// listItems[curState].scrollIntoView(true);
+		listItems[curState].scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest',
+		});
 	}
 
 	// for click event

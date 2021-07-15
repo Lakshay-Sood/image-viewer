@@ -57,6 +57,7 @@ export const setLoadingState = (on) => {
 		loadEle.src = './public/loader-gif.gif';
 
 		list.appendChild(loadEle);
+		list.scrollBy(0, 500);
 	} else {
 		list.removeChild(list.querySelector('.temp-loader'));
 	}
